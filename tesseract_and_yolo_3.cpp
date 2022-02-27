@@ -9,6 +9,7 @@ int main(int argc, char * argv[])
 {
 	try
 	{
+		// see:  https://www.ccoderun.ca/darkhelp/api/API.html
 		DarkHelp::NN nn(
 			"../nn/streetsigns.cfg"		,
 			"../nn/streetsigns.weights"	,

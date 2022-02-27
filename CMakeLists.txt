@@ -11,7 +11,7 @@ FIND_LIBRARY (Darknet	darknet)	# https://github.com/AlexeyAB/darknet
 INCLUDE_DIRECTORIES (${OpenCV_INCLUDE_DIRS})
 
 ADD_EXECUTABLE (tesseract_and_yolo_1 tesseract_and_yolo_1.cpp)
-TARGET_LINK_LIBRARIES (tesseract_and_yolo_1 Threads::Threads ${Tesseract} ${DarkHelp} ${Darknet} ${OpenCV_LIBS})
+TARGET_LINK_LIBRARIES (tesseract_and_yolo_1 Threads::Threads ${Tesseract} ${OpenCV_LIBS})
 
 ADD_EXECUTABLE (tesseract_and_yolo_2 tesseract_and_yolo_2.cpp)
 TARGET_LINK_LIBRARIES (tesseract_and_yolo_2 Threads::Threads ${DarkHelp} ${Darknet} ${OpenCV_LIBS})

@@ -13,7 +13,15 @@ int main(int argc, char * argv[])
 	{
 		std::unique_ptr<tesseract::TessBaseAPI> tess(new tesseract::TessBaseAPI());
 		tess->Init(nullptr, "eng");
-		tess->SetVariable("user_defined_dpi", "70");
+
+		// see the different options available for page segmentation
+#if 1
+		// if what you are reading is a single block of text
+		tess->SetPageSegMode(tesseract::PSM_SINGLE_BLOCK);
+#else
+		// if you want to extract any and all possible text from an image
+		tess->SetPageSegMode(tesseract::PSM_SPARSE_TEXT);
+#endif
 
 		for (int idx = 1; idx < argc; idx ++)
 		{
@@ -21,11 +29,11 @@ int main(int argc, char * argv[])
 			std::cout << "loading " << fn << std::endl;
 			cv::Mat mat = cv::imread(fn);
 			tess->SetImage(mat.data, mat.cols, mat.rows, mat.channels(), mat.step1());
+			tess->SetSourceResolution(70);
 
-			const auto * txt = tess->GetUTF8Text();
-			if (txt == nullptr) throw std::invalid_argument("failed to detect any text");
-			const std::string str = txt;
-			delete [] txt;
+			std::unique_ptr<char[]> txt(tess->GetUTF8Text());
+			if (not txt) throw std::invalid_argument("failed to detect any text");
+			const std::string str = txt.get();
 
 			std::cout << str << std::endl;
 

@@ -21,5 +21,5 @@ Once you [install Darknet and DarkHelp](https://github.com/stephanecharette/Dark
 	cd tesseract_and_yolo
 	mkdir build
 	cd build
-	cmake --DCMAKE_BUILD_TYPE=Release ..
+	cmake -DCMAKE_BUILD_TYPE=Release ..
 	make -j4
